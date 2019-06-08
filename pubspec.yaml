@@ -1,0 +1,12 @@
+name: front_matter
+version: 1.0.0
+description: Extracts YAML front matter from a file.
+author: izolate <izolate@gmail.com>
+homepage: https://github.com/izolate/front-matter
+documentation: https://github.com/izolate/front-matter/blob/master/README.md
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+dependencies:
+  yaml: ^2.1.15
+dev_dependencies:
+  test: ^1.6.2
