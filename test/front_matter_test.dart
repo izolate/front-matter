@@ -59,7 +59,8 @@ void main() {
 
   test('throws FrontMatterException when YAML is invalid', () {
     var input = '---\nINVALID\n---\nfoo';
-    expect(() => fm.parse(input), throwsA(const TypeMatcher<FrontMatterException>()));
+    expect(() => fm.parse(input),
+        throwsA(const TypeMatcher<FrontMatterException>()));
   });
 
   test('reads a file from disk and parses front matter', () async {
@@ -70,8 +71,8 @@ void main() {
   test('throws an error if file not found', () {
     expect(
         () async => await fm.parseFile('/path/to/nowhere'),
-        throwsA(predicate(
-            (e) => e is FrontMatterException && e.message == fileNotFoundError)));
+        throwsA(predicate((e) =>
+            e is FrontMatterException && e.message == fileNotFoundError)));
   });
 
   test('throws an error if file type is not supported', () {

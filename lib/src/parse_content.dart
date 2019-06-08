@@ -6,7 +6,7 @@ import 'front_matter_exception.dart';
 final invalidYamlError = '`input` must be valid YAML.';
 
 /// Extracts and parses YAML front matter from an input [String].
-/// 
+///
 /// Returns a [FrontMatterDocument] comprising the parsed YAML front matter
 /// `data` [YamlMap], and the remaining `content` [String].
 ///
