@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'front_matter_document.dart';
 import 'front_matter_exception.dart';
