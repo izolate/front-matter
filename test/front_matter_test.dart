@@ -49,7 +49,7 @@ void main() {
   });
 
   test('uses custom delimiters', () {
-    var delimiters = ['* * *', '+++', '#####', '¯\\_(ツ)_/¯'];
+    var delimiters = ['* * *', '+++', '#####', '= yaml =', '¯\\_(ツ)_/¯'];
     var tests = delimiters.map((delimiter) => Test(delimiter: delimiter));
 
     tests.forEach((test) {
