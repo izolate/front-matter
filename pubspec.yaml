@@ -1,6 +1,6 @@
 name: front_matter
 version: 1.0.0
-description: Extracts YAML front matter from a file.
+description: Extracts YAML front matter from a file or string.
 author: izolate <izolate@gmail.com>
 homepage: https://github.com/izolate/front-matter
 documentation: https://github.com/izolate/front-matter/blob/master/README.md
