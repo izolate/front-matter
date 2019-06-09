@@ -23,8 +23,9 @@ class Test {
 
 void main() {
   test('return type is `FrontMatterDocument`', () {
-    var expected = FrontMatterDocument('foo');
-    var result = fm.parse('foo');
+    var text = 'foo';
+    var expected = FrontMatterDocument(text);
+    var result = fm.parse(text);
 
     expect(result.runtimeType, equals(expected.runtimeType));
   });
@@ -33,6 +34,7 @@ void main() {
     var test = Test();
     var result = fm.parse(test.value);
 
+    expect(result.value, equals(test.value));
     expect(result.content, equals(test.content));
     expect(result.data['foo'], equals(test.foo));
     expect(result.data['baz'], equals(test.baz));

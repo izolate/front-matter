@@ -5,15 +5,10 @@ import 'parse_content.dart';
 
 // Default delimiter for YAML.
 const defaultDelimiter = '---';
-// Error thrown when file is not found.
-const fileNotFoundError = 'File not found';
-// Error thrown when the file type is unsupported.
-const fileTypeError = 'File type is not supported';
 
-/// Parses an [input] string to extract the front matter.
-FrontMatterDocument parse(String input,
-        {String delimiter = defaultDelimiter}) =>
-    parseContent(input, delimiter: delimiter);
+/// Parses a [text] string to extract the front matter.
+FrontMatterDocument parse(String text, {String delimiter = defaultDelimiter}) =>
+    parseContent(text, delimiter: delimiter);
 
 /// Reads a file at [path] and parses the content to extract the front matter.
 Future<FrontMatterDocument> parseFile(String path,
@@ -26,10 +21,15 @@ Future<FrontMatterDocument> parseFile(String path,
   }
 
   try {
-    var contents = await file.readAsString();
-    return parseContent(contents, delimiter: delimiter);
+    var text = await file.readAsString();
+    return parseContent(text, delimiter: delimiter);
   } catch (e) {
-    // Throw an error if file is not readable as text.
-    throw FrontMatterException(fileTypeError);
+    // Handle downstream errors, or throw one if file is not readable as text.
+    switch (e.message) {
+      case invalidYamlError:
+        rethrow;
+      default:
+        throw FrontMatterException(fileTypeError);
+    }
   }
 }
