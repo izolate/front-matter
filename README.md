@@ -44,8 +44,8 @@ I recommend using the import prefix `front_matter` due to the ambiguity of the m
 
 ### API
 
-#### `parse(String text, {String delimiter = '---'})`
-Parse a string.
+#### `FrontMatterDocument parse(String text, {String delimiter = "---"})`
+Parse a string, return a `FrontMatterDocument` with results.
 
-#### `parseFile(String path, {String delimiter = '---'})`
-Read a file and parse its contents.
+#### `Future<FrontMatterDocument> parseFile(String path, {String delimiter = "---"})`
+Read a file and parse its contents, return a `Future<FrontMatterDocument>` with results.
