@@ -1,5 +1,8 @@
 # Front Matter
+
 Extracts YAML front matter from a file or string.
+
+[![Build Status](https://travis-ci.org/izolate/front-matter.svg?branch=master)](https://travis-ci.org/izolate/front-matter)
 
 Front matter is a concept heavily borrowed from [Jekyll](https://github.com/jekyll/jekyll), and other static site generators, referring to a block of YAML in the header of a file representing the file's metadata.
 
