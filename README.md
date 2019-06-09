@@ -1,6 +1,6 @@
 # Front Matter
 
-Extracts YAML front matter from a file or string.
+A front matter parser that extracts YAML metadata from the start of a file or string.
 
 [![Build Status](https://travis-ci.org/izolate/front-matter.svg?branch=master)](https://travis-ci.org/izolate/front-matter)
 
