@@ -10,58 +10,59 @@ const defaultDelimiter = '---';
 
 /// Document containing the original `value`, front matter `data` and `content`.
 class FrontMatterDocument {
-  FrontMatterDocument ( { @required this.data, @required this.content } );
+  FrontMatterDocument({@required this.data, @required this.content});
 
-  FrontMatterDocument.fromText ( String text, {String delimiter = defaultDelimiter} ) {
+  FrontMatterDocument.fromText(String text,
+      {String delimiter = defaultDelimiter}) {
     // Remove any leading whitespace.
-    final value = text.trimLeft ( );
+    final value = text.trimLeft();
 
     // If there's no starting delimiter, there's no front matter.
-    if ( ! value.startsWith ( delimiter ) ) {
+    if (!value.startsWith(delimiter)) {
       content = value;
-      data = YamlMap ( );
+      data = YamlMap();
       return;
     }
 
     // Get the index of the closing delimiter.
-    final closeIndex = value.indexOf ( '\n' + delimiter );
+    final closeIndex = value.indexOf('\n' + delimiter);
 
     // Get the raw front matter block between the opening and closing delimiters.
-    final frontMatter = value.substring ( delimiter.length, closeIndex );
+    final frontMatter = value.substring(delimiter.length, closeIndex);
 
-    if ( frontMatter.isNotEmpty ) {
+    if (frontMatter.isNotEmpty) {
       try {
         // Parse the front matter as YAML.
-        data = loadYaml ( frontMatter );
-      } catch ( e ) {
-        throw FrontMatterException ( invalidYamlError );
+        data = loadYaml(frontMatter);
+      } catch (e) {
+        throw FrontMatterException(invalidYamlError);
       }
     }
 
     // The content begins after the closing delimiter index.
-    content = value.substring ( closeIndex + (delimiter.length + 1) ).trim ( );
+    content = value.substring(closeIndex + (delimiter.length + 1)).trim();
 
-    print ( 'content: $content' );
+    print('content: $content');
   }
 
-  static fromFile ( String path, {String delimiter = defaultDelimiter} ) async {
-    var file = File ( path );
+  static fromFile(String path, {String delimiter = defaultDelimiter}) async {
+    var file = File(path);
 
     // Throw an error if file not found.
-    if ( ! await file.exists ( ) ) {
-      throw FrontMatterException ( fileNotFoundError );
+    if (!await file.exists()) {
+      throw FrontMatterException(fileNotFoundError);
     }
 
     try {
-      var text = await file.readAsString ( );
-      return FrontMatterDocument.fromText ( text, delimiter: delimiter );
-    } catch ( e ) {
+      var text = await file.readAsString();
+      return FrontMatterDocument.fromText(text, delimiter: delimiter);
+    } catch (e) {
       // Handle downstream errors, or throw one if file is not readable as text.
-      switch ( e.message ) {
+      switch (e.message) {
         case invalidYamlError:
           rethrow;
         default:
-          throw FrontMatterException ( fileTypeError );
+          throw FrontMatterException(fileTypeError);
       }
     }
   }
@@ -74,8 +75,8 @@ class FrontMatterDocument {
   String get value {
     var newValue = '---\n';
 
-    for ( final d in data.entries.toList ( )
-      ..sort ( ( a, b ) => a.key.compareTo ( b.key ) ) ) {
+    for (final d in data.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key))) {
       newValue += '${d.key}: ${d.value}\n';
     }
 
