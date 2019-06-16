@@ -50,7 +50,7 @@ The returned document is an instance of `FrontMatterDocument` with properties:
 To convert the document back to the initial string value, call `toString()`.
 
 ```dart
-var text = fm.parse('---\nfoo: bar\n---\nHello, world!');
+var text = '---\nfoo: bar\n---\nHello, world!';
 var doc = fm.parse(text);
 
 assert(doc.toString(), equals(text)); // true
