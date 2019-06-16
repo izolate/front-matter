@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:front_matter/front_matter.dart' as front_matter;
+import 'package:front_matter/front_matter.dart';
 
 // Example 1 - Parse a string.
 void example1() async {
   var file = new File('example/hello-world.md');
   var fileContents = await file.readAsString();
 
-  var doc = front_matter.parse(fileContents);
+  var doc = FrontMatterDocument.fromText(fileContents);
 
   print("The author is ${doc.data['author']}");
   print("The publish date is ${doc.data['date']}");
@@ -15,7 +15,7 @@ void example1() async {
 
 // Example 2 - Read a file and parse its contents.
 void example2() async {
-  var doc = await front_matter.parseFile('example/hello-world.md');
+  final doc = await FrontMatterDocument.fromFile('example/hello-world.md');
 
   print("The author is ${doc.data['author']}");
   print("The publish date is ${doc.data['date']}");
