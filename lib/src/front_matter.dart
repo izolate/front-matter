@@ -5,16 +5,17 @@ import 'front_matter_exception.dart';
 import 'parser.dart';
 
 // Default delimiter for YAML.
-const defaultDelimiter = '---';
+const _defaultDelimiter = '---';
 
 /// Parses a [text] string to extract the front matter.
-FrontMatterDocument parse(String text, {String delimiter = defaultDelimiter}) =>
+FrontMatterDocument parse(String text,
+        {String delimiter = _defaultDelimiter}) =>
     parser(text, delimiter: delimiter);
 
 /// Reads a file at [path] and parses the content to extract the front matter.
 Future<FrontMatterDocument> parseFile(String path,
-    {String delimiter = defaultDelimiter}) async {
-  var file = new File(path);
+    {String delimiter = _defaultDelimiter}) async {
+  var file = File(path);
 
   // Throw an error if file not found.
   if (!await file.exists()) {
