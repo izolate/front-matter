@@ -4,21 +4,32 @@ import 'package:front_matter/src/front_matter.dart';
 import 'package:front_matter/src/front_matter_document.dart';
 import 'package:front_matter/src/front_matter_exception.dart';
 
+const String _defaultDelimiter = '---';
+const String _defaultContent = 'Hello, world!';
+const Map<String, String> _defaultData = {'foo': 'bar', 'baz': 'qux'};
+
 /// Represents a test with default parameters.
 class Test {
-  String foo, baz, delimiter, content;
+  String delimiter, content;
+  Map<String, String> data;
 
   Test(
-      {this.foo = 'bar',
-      this.baz = 'qux',
-      this.delimiter = defaultDelimiter,
-      this.content = '\nHello, world!'});
+      {this.delimiter = _defaultDelimiter,
+      this.content = _defaultContent,
+      this.data = _defaultData});
 
-  String get frontMatter =>
-      '${this.delimiter}\nfoo: ${this.foo}\nbaz: ${this.baz}\n${this.delimiter}';
+  /// Converts data to a front matter block
+  String get frontMatter {
+    var data = this
+        .data
+        .entries
+        .toList()
+        .map((entry) => '${entry.key}: ${entry.value}');
+    return "${this.delimiter}\n${data.join('\n')}\n${this.delimiter}";
+  }
 
   /// Joins front matter to content.
-  String get value => this.frontMatter + this.content;
+  String toString() => '${this.frontMatter}${this.content}';
 }
 
 void main() {
@@ -32,20 +43,20 @@ void main() {
 
   test('parses front matter with default options', () {
     var test = Test();
-    var result = fm.parse(test.value);
+    var result = fm.parse(test.toString());
 
-    expect(result.value, equals(test.value));
+    expect(result.toString(), equals(test.toString()));
     expect(result.content, equals(test.content));
-    expect(result.data['foo'], equals(test.foo));
-    expect(result.data['baz'], equals(test.baz));
+    expect(result.data['foo'], equals(test.data['foo']));
+    expect(result.data['baz'], equals(test.data['baz']));
   });
 
   test('removes any leading spaces and linebreaks', () {
     var test = Test();
-    var result = fm.parse('    \n\n\n${test.value}');
+    var result = fm.parse('    \n\n\n${test.toString()}');
 
     expect(result.content, equals(test.content));
-    expect(result.data['foo'], equals(test.foo));
+    expect(result.data['foo'], equals(test.data['foo']));
   });
 
   test('uses custom delimiters', () {
@@ -53,9 +64,9 @@ void main() {
     var tests = delimiters.map((delimiter) => Test(delimiter: delimiter));
 
     tests.forEach((test) {
-      var result = fm.parse(test.value, delimiter: test.delimiter);
+      var result = fm.parse(test.toString(), delimiter: test.delimiter);
       expect(result.content, equals(test.content));
-      expect(result.data['foo'], equals(test.foo));
+      expect(result.data['foo'], equals(test.data['foo']));
     });
   });
 
