@@ -1,6 +1,7 @@
-// Error thrown when file is not found.
+/// Error message for when file is not found.
 const fileNotFoundError = 'File not found';
-// Error thrown when the file type is unsupported.
+
+/// Error message for when the file type is unsupported.
 const fileTypeError = 'File type is not supported';
 
 /// Error message for invalid YAML.
