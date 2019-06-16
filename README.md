@@ -18,7 +18,7 @@ author: "izolate"
 This is an example.
 ```
 
-Use `parse` to parse a `String`, or `parseFile` to read a file and parse its contents.
+Use `parse` to parse a string, or `parseFile` to read a file and parse its contents.
 
 ```dart
 import 'dart:io';
@@ -58,8 +58,8 @@ assert(doc.toString(), equals(text)); // true
 
 ### API
 
-#### `FrontMatterDocument parse(String text, {String delimiter = "---"})`
-Parse a string, return a `FrontMatterDocument` with results.
+#### `parse(String text, {String delimiter = "---"})`
+Parses a string, returns a `FrontMatterDocument` with front matter and body content.
 
-#### `Future<FrontMatterDocument> parseFile(String path, {String delimiter = "---"})`
-Read a file and parse its contents, return a `Future<FrontMatterDocument>` with results.
+#### `parseFile(String path, {String delimiter = "---"})`
+Reads a file and parses its contents. Returns a `Future<FrontMatterDocument>` with front matter and body content.
