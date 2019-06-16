@@ -2,10 +2,17 @@ import 'package:yaml/yaml.dart';
 
 /// Document containing the original `value`, front matter `data` and `content`.
 class FrontMatterDocument {
-  String value, content;
+  /// The initial [value] to be parsed.
+  String value;
+
+  /// The parsed [content] from the [value].
+  String content;
 
   /// The parsed YAML front matter as a [YamlMap].
   YamlMap data;
 
   FrontMatterDocument(this.value);
+
+  /// Returns the initial [value].
+  String toString() => this.value;
 }

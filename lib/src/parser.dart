@@ -8,7 +8,7 @@ import 'front_matter_exception.dart';
 /// `data` [YamlMap], and the remaining `content` [String].
 ///
 /// Throws a [FrontMatterException] if front matter contains invalid YAML.
-FrontMatterDocument parseContent(String text, {String delimiter}) {
+FrontMatterDocument parser(String text, {String delimiter}) {
   var doc = FrontMatterDocument(text);
 
   // Remove any leading whitespace.

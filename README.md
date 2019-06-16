@@ -18,17 +18,17 @@ author: "izolate"
 This is an example.
 ```
 
-Use `parse` to parse a string, or `parseFile` to read a file and parse its contents.
+Use `parse` to parse a `String`, or `parseFile` to read a file and parse its contents.
 
 ```dart
 import 'dart:io';
-import 'package:front_matter/front_matter.dart' as front_matter;
+import 'package:front_matter/front_matter.dart' as fm;
 
-// Example 1 - parse file contents.
+// Example 1 - parse a string.
 void example1() async {
-  var file = new File('/path/to/file.md');
+  var file = File('/path/to/file.md');
   var fileContents = await file.readAsString();
-  var doc = front_matter.parse(fileContents);
+  var doc = fm.parse(fileContents);
   
   print(doc.data['title']); // "Hello, world!"
   print(doc.content);       // "This is an example."
@@ -36,14 +36,25 @@ void example1() async {
 
 // Example 2 - read file and parse contents.
 void example2() async {
-  var doc = await front_matter.parseFile('path/to/file.md');
+  var doc = await fm.parseFile('path/to/file.md');
 
   print(doc.data['title']); // "Hello, world!"
   print(doc.content);       // "This is an example."
 }
 ```
 
-I recommend using the import prefix `front_matter` due to the ambiguity of the method names.
+The returned document is an instance of `FrontMatterDocument` with properties:
+* `YamlMap data` - The front matter.
+* `String content` - The content body.
+
+To convert the document back to the initial string value, call `toString()`.
+
+```dart
+var text = fm.parse('---\nfoo: bar\n---\nHello, world!');
+var doc = fm.parse(text);
+
+assert(doc.toString(), equals(text)); // true
+```
 
 ### API
 
