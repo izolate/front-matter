@@ -1,6 +1,6 @@
 import 'package:yaml/yaml.dart';
-import 'front_matter_document.dart';
-import 'front_matter_exception.dart';
+import 'package:front_matter/src/front_matter_document.dart';
+import 'package:front_matter/src/front_matter_exception.dart';
 
 /// Extracts and parses YAML front matter from a [String].
 ///
@@ -8,11 +8,14 @@ import 'front_matter_exception.dart';
 /// `data` [YamlMap], and the remaining `content` [String].
 ///
 /// Throws a [FrontMatterException] if front matter contains invalid YAML.
-FrontMatterDocument parser(String text, {String delimiter}) {
-  var doc = FrontMatterDocument(text);
+FrontMatterDocument parser({
+  required String text,
+  required String delimiter,
+}) {
+  final doc = FrontMatterDocument(value: text);
 
   // Remove any leading whitespace.
-  var value = text.trimLeft();
+  final value = text.trimLeft();
 
   // If there's no starting delimiter, there's no front matter.
   if (!value.startsWith(delimiter)) {
@@ -20,19 +23,19 @@ FrontMatterDocument parser(String text, {String delimiter}) {
   }
 
   // Get the index of the closing delimiter.
-  final closeIndex = value.indexOf('\n' + delimiter);
+  final closeIndex = value.indexOf('\n$delimiter');
 
   // Get the raw front matter block between the opening and closing delimiters.
-  var frontMatter = value.substring(delimiter.length, closeIndex);
+  final frontMatter = value.substring(delimiter.length, closeIndex);
 
   if (frontMatter.isNotEmpty) {
     try {
       // Parse the front matter as YAML.
-      doc.data = loadYaml(frontMatter);
+      doc.data = loadYaml(frontMatter) as YamlMap?;
       // The content begins after the closing delimiter index.
       doc.content = value.substring(closeIndex + (delimiter.length + 1));
     } catch (e) {
-      throw FrontMatterException(invalidYamlError);
+      throw const FrontMatterException(invalidYamlError);
     }
   }
 
