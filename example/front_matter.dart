@@ -1,28 +1,30 @@
 import 'dart:io';
 import 'package:front_matter/front_matter.dart' as fm;
 
+// ignore_for_file: avoid_print
+
 // Example 1 - Parse a string.
-void example1() async {
-  var file = File('example/hello-world.md');
-  var fileContents = await file.readAsString();
+Future<void> example1() async {
+  final file = File('example/hello-world.md');
+  final fileContents = await file.readAsString();
 
-  var doc = fm.parse(fileContents);
+  final doc = fm.parse(fileContents);
 
-  print("The author is ${doc.data['author']}");
-  print("The publish date is ${doc.data['date']}");
+  print("The author is ${doc.data!['author']}");
+  print("The publish date is ${doc.data!['date']}");
   print("The content is ${doc.content}");
 }
 
 // Example 2 - Read a file and parse its contents.
-void example2() async {
-  var doc = await fm.parseFile('example/hello-world.md');
+Future<void> example2() async {
+  final doc = await fm.parseFile('example/hello-world.md');
 
-  print("The author is ${doc.data['author']}");
-  print("The publish date is ${doc.data['date']}");
+  print("The author is ${doc.data!['author']}");
+  print("The publish date is ${doc.data!['date']}");
   print("The content is ${doc.content}");
 }
 
-void main() async {
+Future<void> main() async {
   await example1();
   await example2();
 }

@@ -9,10 +9,10 @@ const invalidYamlError = 'Front matter is not valid YAML.';
 
 /// Exception thrown when there's an internal error.
 class FrontMatterException implements Exception {
+  const FrontMatterException(this.message);
+
   final String message;
 
-  FrontMatterException(this.message);
-
   @override
-  String toString() => 'FrontMatterException: ${this.message}';
+  String toString() => 'FrontMatterException: $message';
 }

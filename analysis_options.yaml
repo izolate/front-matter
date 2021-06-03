@@ -1,0 +1,34 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  
+  strong-mode:
+      implicit-casts: false
+      implicit-dynamic: false
+  
+  errors: 
+    # Causes false positives (https://github.com/dart-lang/sdk/issues/41571)
+    top_level_function_literal_block: ignore
+    avoid_classes_with_only_static_members: error
+    sort_pub_dependencies: error
+    use_key_in_widget_constructors: error
+    always_use_package_imports: error
+    sort_constructors_first: error
+    prefer_const_constructors: error
+
+linter:
+  rules:
+    avoid_classes_with_only_static_members: false
+    sort_pub_dependencies: false
+    use_key_in_widget_constructors: true
+    always_use_package_imports: true
+    prefer_const_constructors: true
+    # Conflicts with the convention used by flutter, which puts `Key key`
+    # and `@required Widget child` last.
+    always_put_required_named_parameters_first: false
+    package_api_docs: true
+    slash_for_doc_comments: true
+    sort_constructors_first: true

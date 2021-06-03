@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'front_matter_document.dart';
-import 'front_matter_exception.dart';
-import 'parser.dart';
+import 'package:front_matter/src/front_matter_document.dart';
+import 'package:front_matter/src/front_matter_exception.dart';
+import 'package:front_matter/src/parser.dart';
 
 // Default delimiter for YAML.
 const _defaultDelimiter = '---';
@@ -10,28 +10,33 @@ const _defaultDelimiter = '---';
 /// Parses a [text] string to extract the front matter.
 FrontMatterDocument parse(String text,
         {String delimiter = _defaultDelimiter}) =>
-    parser(text, delimiter: delimiter);
+    parser(text: text, delimiter: delimiter);
 
 /// Reads a file at [path] and parses the content to extract the front matter.
 Future<FrontMatterDocument> parseFile(String path,
     {String delimiter = _defaultDelimiter}) async {
-  var file = File(path);
+  final file = File(path);
 
   // Throw an error if file not found.
   if (!await file.exists()) {
-    throw FrontMatterException(fileNotFoundError);
+    throw const FrontMatterException(fileNotFoundError);
   }
 
   try {
-    var text = await file.readAsString();
-    return parser(text, delimiter: delimiter);
+    final text = await file.readAsString();
+    return parser(text: text, delimiter: delimiter);
   } catch (e) {
     // Handle downstream errors, or throw one if file is not readable as text.
-    switch (e.message) {
-      case invalidYamlError:
-        rethrow;
-      default:
-        throw FrontMatterException(fileTypeError);
+    if (e is FrontMatterException) {
+      switch (e.message) {
+        case invalidYamlError:
+          rethrow;
+        default:
+          throw const FrontMatterException(fileTypeError);
+      }
+    } else if (e is FileSystemException) {
+      throw const FrontMatterException(fileTypeError);
     }
+    rethrow;
   }
 }

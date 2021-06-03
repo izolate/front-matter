@@ -1,12 +1,17 @@
 name: front_matter
 version: 1.1.0
-description: A front matter parser that extracts YAML metadata from the start of a file or string.
+description: A front matter parser that extracts YAML metadata from the start of
+  a file or string.
 author: izolate <izolate@gmail.com>
 homepage: https://github.com/izolate/front-matter
 documentation: https://github.com/izolate/front-matter/blob/master/README.md
+
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
+
 dependencies:
-  yaml: ^2.1.15
+  yaml: ^3.1.0
+
 dev_dependencies:
-  test: ^1.6.2
+  lint: ^1.5.3
+  test: ^1.17.5
