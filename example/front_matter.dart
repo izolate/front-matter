@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:front_matter/front_matter.dart' as fm;
 
 // Example 1 - Parse a string.
-void example1() async {
+Future<void> example1() async {
   var file = File('example/hello-world.md');
   var fileContents = await file.readAsString();
 
@@ -14,7 +14,7 @@ void example1() async {
 }
 
 // Example 2 - Read a file and parse its contents.
-void example2() async {
+Future<void> example2() async {
   var doc = await fm.parseFile('example/hello-world.md');
 
   print("The author is ${doc.data['author']}");
