@@ -4,8 +4,8 @@ description: A front matter parser that extracts YAML metadata from the start of
 homepage: https://github.com/izolate/front-matter
 documentation: https://github.com/izolate/front-matter/blob/master/README.md
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 dependencies:
-  yaml: ^3.1.1
+  yaml: ^3.1.2
 dev_dependencies:
   test: ^1.21.6
