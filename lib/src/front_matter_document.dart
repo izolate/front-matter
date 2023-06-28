@@ -6,10 +6,10 @@ class FrontMatterDocument {
   String value;
 
   /// The parsed [content] from the [value].
-  String content;
+  String? content;
 
   /// The parsed YAML front matter as a [YamlMap].
-  YamlMap data;
+  YamlMap data = YamlMap();
 
   FrontMatterDocument(this.value);
 

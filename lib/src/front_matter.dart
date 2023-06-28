@@ -27,11 +27,10 @@ Future<FrontMatterDocument> parseFile(String path,
     return parser(text, delimiter: delimiter);
   } catch (e) {
     // Handle downstream errors, or throw one if file is not readable as text.
-    switch (e.message) {
-      case invalidYamlError:
-        rethrow;
-      default:
-        throw FrontMatterException(fileTypeError);
-    }
+    if (e is FrontMatterException && e.message == invalidYamlError) {
+      rethrow;
+    } else {
+      throw FrontMatterException(fileTypeError);
+    } 
   }
 }
